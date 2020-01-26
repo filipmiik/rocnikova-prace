@@ -4,7 +4,7 @@ Tento projekt demonstruje způsob využití a aplikace rozpoznání obličejů z
 ## Princip
 Program při spuštění načte dostupné obrázky ze složky `images/_source`, zpracuje je a nalezené obličeje po jednom uloží do složky `images/faces`.
 
-Pro extrahování obličejů z obrázků, nahrajte fotografie do složky `images/_source` a spusťte příkaz
+Pro extrahování obličejů z obrázků nahrajte fotografie do složky `images/_source` a spusťte příkaz
 
     $ python main.py
 

@@ -17,10 +17,22 @@ def get_classifiers_paths(classdir: Path) -> Iterable[Path]:
 
 def get_classifiers(classdir: Path) -> Iterable[cv.CascadeClassifier]:
     # Get path of each classifier
-    classifiers = get_classifiers_paths(classdir)
+    paths = get_classifiers_paths(classdir)
+    classifiers = []
+
+    # Add classifier to `classifiers` array if it is a classifier
+    for path in paths:
+        if path.name == '.gitkeep':
+            continue
+
+        try:
+            classifier = cv.CascadeClassifier(str(path))
+            classifiers.append(classifier)
+        except Exception as e:
+            print(f'Error while loading classifier at {str(path)}: {str(e)}')
 
     # Create classifiers from paths
-    return map(lambda path: cv.CascadeClassifier(str(path)), classifiers)
+    return tuple(classifiers)
 
 
 def get_face_coordinates(img: np.ndarray,
