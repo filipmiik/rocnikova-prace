@@ -6,24 +6,24 @@ import detector
 import image
 
 if __name__ == '__main__':
-    # Load images from path
+    # Načti obrázky z adresáře
     images = image.get_by_dir(Path(r'./images/_source'))
-    # Load classifiers from path
+    # Načti klasifikátory z adresáře
     classifiers = detector.get_classifiers(Path(r'./classifiers'))
 
-    # Iterate through images
+    # Projdi všechny načtené obrázky
     for (path, img) in images:
-        # Create the output path
+        # Sestav cestu pro uložení
         np = path.parents[1].joinpath('faces')
-        # Get face coordinates in the image
+        # Získej souřadnice obličejů na obrázku
         faces = detector.get_face_coordinates(img, classifiers)
 
-        # Check if there are any faces in the image
+        # Zkontroluj, jestli byl nalezen alespoň 1 obličej
         if faces is not None:
-            # Create images from the face coordinates
+            # Vytvoř obrázky ze získaných souřadnic obličejů
             cimages = image.crop_multi(img, faces, 0.3)
 
-            # Iterate over cropped images
+            # Projdi jednotlivé oříznuté obrázky
             for (i, cimg) in enumerate(cimages):
-                # Save the image into the output directory
+                # Ulož obrázek do výstupního adresáře
                 cv.imwrite(str(np.joinpath('%s-%d%s' % (path.stem, i + 1, path.suffix))), cimg)

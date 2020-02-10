@@ -6,13 +6,13 @@ import collections
 
 def calculate_borderpoints(img: np.ndarray, coords: Iterable[int], margin: float or int = 0) \
         -> Tuple[Tuple[int, int], Tuple[int, int]]:
-    # Check if `img` is an instance of NumPy array
+    # Zkontroluj, jestli `img` je instance NumPy pole
     if not isinstance(img, np.ndarray):
         raise TypeError('Supplied argument `img` must be an instance of numpy.ndarray.')
-    # Check if `coords` is iterable
+    # Zkontroluj, jestli `coords` je procházitelný
     if not isinstance(coords, collections.Iterable):
         raise TypeError('Supplied argument `coords` must be iterable.')
-    # Check if `margin` is of type float or int
+    # Zkontroluj, jestli `margin` je typu float, nebo int
     if not isinstance(margin, (int, float)):
         raise TypeError('Supplied argument `margin` must be of type `int` or `float`.')
 
@@ -20,6 +20,7 @@ def calculate_borderpoints(img: np.ndarray, coords: Iterable[int], margin: float
     xmar = int(w * margin)
     ymar = int(h * margin)
 
+    # Spočítej oba dva hraniční body
     p1 = (
         int(0 if x - xmar < 0 else x - xmar),
         int(0 if y - ymar < 0 else y - ymar)

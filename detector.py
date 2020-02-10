@@ -7,20 +7,20 @@ import numpy as np
 
 
 def get_classifiers_paths(classdir: Path) -> Iterable[Path]:
-    # Check if supplied path points to a directory
+    # Zkontroluj, jestli `classdir` odkazuje na platný adresář
     if not isinstance(classdir, Path) or not Path.is_dir(classdir):
         raise NotADirectoryError(f'`{classdir}` is not a directory.')
 
-    # Return a tuple of files in `classdir` path
+    # Vrať tuple souborů v `classdir`
     return Path.iterdir(classdir)
 
 
 def get_classifiers(classdir: Path) -> Iterable[cv.CascadeClassifier]:
-    # Get path of each classifier
+    # Získej cestu každého klasifikátoru
     paths = get_classifiers_paths(classdir)
     classifiers = []
 
-    # Add classifier to `classifiers` array if it is a classifier
+    # Přidej klasifikátor do `clasaifiers` jestli je platným klasifikátorem OpenCV
     for path in paths:
         if path.name == '.gitkeep':
             continue
@@ -31,16 +31,16 @@ def get_classifiers(classdir: Path) -> Iterable[cv.CascadeClassifier]:
         except Exception as e:
             print(f'Error while loading classifier at {str(path)}: {str(e)}')
 
-    # Create classifiers from paths
+    # Vrať tuple klasifikátorů
     return tuple(classifiers)
 
 
 def get_face_coordinates(img: np.ndarray,
                          classifiers: Iterable[cv.BaseCascadeClassifier or cv.CascadeClassifier]) -> np.ndarray:
-    # Check if `img` is a NumPy array
+    # Zkontroluj, jestli `img` je instance NumPy pole
     if not isinstance(img, np.ndarray):
         raise TypeError('Supplied `img` argument must be an instance of `numpy.ndarray`.')
-    # Check if `classifiers` arg is iterable
+    # Zkontroluj, jestli `classifiers` je procházitelný
     if not isinstance(classifiers, collections.Iterable):
         raise TypeError('Supplied `classifier` argument must be iterable.')
 
@@ -48,15 +48,15 @@ def get_face_coordinates(img: np.ndarray,
     img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     faces = None
 
-    # Iterate through classifiers and add matches to `faces` array
+    # Projdi klasifikátory a přidej nalezené obliřeje do `faces`
     for classifier in classifiers:
-        # Check if supplied classifiers are indeed instances of CV2 Classifiers
+        # Zkontroluj, jestli klasifikátor je instancí CV2 Classifiers
         if not isinstance(classifier, (cv.CascadeClassifier, cv.BaseCascadeClassifier)):
             raise TypeError('Supplied classifier is not an instance of cv.-Classifier.')
 
-        # Detect faces in image
+        # Najdi obličeje v obrázku
         found = classifier.detectMultiScale(img, 1.1, 5, cv.CASCADE_SCALE_IMAGE, (20, 20))
-        # Add found faces to `faces` array
+        # Přidej nalezené obličeje do `faces`
         if len(found) > 0:
             if faces is None:
                 faces = found
