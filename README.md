@@ -14,3 +14,8 @@ Pro extrahování obličejů z obrázků nahrajte fotografie do složky `images/
 
 ##  Využité klasifikátory
 1. `haarcascade_frontalface_alt.xml` dostupný z repozitáře `opencv/opencv/data/haarcascades`
+
+## Využité obrázky
+1. https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/2017_class_of_NASA_astronauts_in_January_2020.jpg/1280px-2017_class_of_NASA_astronauts_in_January_2020.jpg
+2. https://pixabay.com/get/5fe1dd474d53b108feda84608229347d143ddae0564c704c7d2e78d2944bc65a/pedestrians-918471_1920.jpg?attachment
+3. https://pixabay.com/get/57e2d1464d55aa14f6d1867dda6d367d163edce156546c4870277ad7914ec05ab0/workplace-1245776_1920.jpg?attachment
